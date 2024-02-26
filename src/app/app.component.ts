@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-
 import { CardComponent } from './card/card.component';
 import { ResourceSelectComponent } from './resource-select/resource-select.component';
 import { SwapiResourceName, SwapiService } from './swapi.service';

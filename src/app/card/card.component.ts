@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { isSwapiPerson } from '../model';
-import { DuelState, SwapiRequestResult, SwapiResource } from '../swapi.service';
+import { SwapiRequestResult, SwapiResource } from '../swapi.service';
 
 @Component({
 	selector: 'app-card',

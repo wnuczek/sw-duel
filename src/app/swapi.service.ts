@@ -3,17 +3,11 @@ import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
 	BehaviorSubject,
 	Observable,
-	Subject,
 	Subscription,
 	catchError,
-	count,
 	map,
-	mergeAll,
 	mergeMap,
-	of,
 	retry,
-	tap,
-	zip,
 } from 'rxjs';
 import {
 	SwapiPerson,
