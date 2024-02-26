@@ -1,19 +1,23 @@
 <mat-card
-  class="card"
-  [ngClass]="result === true ? 'winner' : result === false ? 'loser' : ''"
->
-  <mat-card-header>
-    <mat-card-subtitle>{{ player }} <span class="player-stats">Wins: {{playerWins}}</span></mat-card-subtitle>
+	class="card"
+	[ngClass]="result === true ? 'winner' : result === false ? 'loser' : ''">
+	<mat-card-header>
+		<mat-card-subtitle
+			>{{ player }}
+			<span class="player-stats"
+				>Wins: {{ playerWins }}</span
+			></mat-card-subtitle
+		>
 		<mat-card-title>{{ resource?.properties?.name }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    @if (resource) {
-    <p>{{ getComparedProperty() }}</p>
-    }
-  </mat-card-content>
-  <mat-card-footer>
-    @if (loading) {
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    }
-  </mat-card-footer>
+	</mat-card-header>
+	<mat-card-content>
+		@if (resource) {
+			<p>{{ getComparedProperty() }}</p>
+		}
+	</mat-card-content>
+	<mat-card-footer>
+		@if (loading) {
+			<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+		}
+	</mat-card-footer>
 </mat-card>

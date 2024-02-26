@@ -5,20 +5,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { SWAPI_RESOURCES, SwapiResourceName } from '../swapi.service';
 
 @Component({
-  selector: 'app-resource-select',
-  standalone: true,
-  imports: [KeyValuePipe, FormsModule, MatSelectModule],
-  templateUrl: './resource-select.component.html',
-  styleUrl: './resource-select.component.css',
+	selector: 'app-resource-select',
+	standalone: true,
+	imports: [KeyValuePipe, FormsModule, MatSelectModule],
+	templateUrl: './resource-select.component.html',
+	styleUrl: './resource-select.component.css',
 })
 export class ResourceSelectComponent {
-  resources = SWAPI_RESOURCES;
+	resources = SWAPI_RESOURCES;
 
-  @Input() selectedResource: SwapiResourceName | undefined;
-  @Output() selectedResourceChange: EventEmitter<SwapiResourceName> =
-    new EventEmitter<SwapiResourceName>();
+	@Input() selectedResource: SwapiResourceName | undefined;
+	@Output() selectedResourceChange: EventEmitter<SwapiResourceName> =
+		new EventEmitter<SwapiResourceName>();
 
-  onResourceSelect($event: SwapiResourceName) {
-    this.selectedResourceChange.emit($event);
-  }
+	onResourceSelect($event: SwapiResourceName) {
+		this.selectedResourceChange.emit($event);
+	}
 }

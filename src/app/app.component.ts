@@ -8,38 +8,38 @@ import { ResourceSelectComponent } from './resource-select/resource-select.compo
 import { SwapiResourceName, SwapiService } from './swapi.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule,
-    CardComponent,
-    ResourceSelectComponent,
-    MatButtonModule,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+	selector: 'app-root',
+	standalone: true,
+	imports: [
+		RouterOutlet,
+		CommonModule,
+		CardComponent,
+		ResourceSelectComponent,
+		MatButtonModule,
+	],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'SW Duel';
-  selectedResource: SwapiResourceName = 'people';
+	title = 'SW Duel';
+	selectedResource: SwapiResourceName = 'people';
 
-  private swapi = inject(SwapiService);
+	private swapi = inject(SwapiService);
 
-  duelState$ = this.swapi.duelState$;
-  duelLoading$ = this.swapi.duelLoading$;
+	duelState$ = this.swapi.duelState$;
+	duelLoading$ = this.swapi.duelLoading$;
 
-  duel() {
-    this.swapi.duel(this.selectedResource);
-  }
+	duel() {
+		this.swapi.duel(this.selectedResource);
+	}
 
-  duelResultLabel(
-    results: [boolean, boolean] | [undefined, undefined] | undefined
-  ): 'No duels played' | 'Draw' | 'Player 1 wins' | 'Player 2 wins' {
-    if (!results || results.every((r) => r === undefined))
-      return 'No duels played';
-    if (results.every((r) => r === false)) return 'Draw';
-    if (results[0]) return 'Player 1 wins';
-    return 'Player 2 wins';
-  }
+	duelResultLabel(
+		results: [boolean, boolean] | [undefined, undefined] | undefined,
+	): 'No duels played' | 'Draw' | 'Player 1 wins' | 'Player 2 wins' {
+		if (!results || results.every((r) => r === undefined))
+			return 'No duels played';
+		if (results.every((r) => r === false)) return 'Draw';
+		if (results[0]) return 'Player 1 wins';
+		return 'Player 2 wins';
+	}
 }
