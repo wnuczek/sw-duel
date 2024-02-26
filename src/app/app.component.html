@@ -4,40 +4,26 @@
 ) {
 	<header>
 		<h1>{{ title }}</h1>
-		<app-resource-select
-			[(selectedResource)]="selectedResource"></app-resource-select>
-		<button
-			id="play-button"
-			mat-raised-button
-			color="primary"
-			(click)="duel()"
-			[disabled]="data.duelLoading">
-			Play
-		</button>
+		<app-resource-select></app-resource-select>
+		<app-play-button [disabled]="data.duelLoading"></app-play-button>
 	</header>
 	<main>
-		<section
-			class="results"
-			[ngClass]="data.duelLoading ? 'loading' : 'loaded'">
-			@if (!data.duelLoading) {
-				{{ duelResultLabel(data.duelState?.duelsResults) }}
-			} @else {
-				Duel in progress
-			}
-		</section>
+		<app-duel-result
+			[loading]="data.duelLoading"
+			[results]="data.duelState?.duelsResults"></app-duel-result>
 		<section class="cards">
 			@if (data.duelState) {
 				<app-card
 					[player]="'Player 1'"
 					[playerWins]="data.duelState.playerOneWins"
 					[resource]="data.duelState.duelsData[0]"
-					[result]="data.duelState.duelsResults[0]"
+					[result]="data.duelState.duelsResults?.[0]"
 					[loading]="data.duelLoading"></app-card>
 				<app-card
 					[player]="'Player 2'"
 					[playerWins]="data.duelState.playerTwoWins"
 					[resource]="data.duelState.duelsData[1]"
-					[result]="data.duelState.duelsResults[1]"
+					[result]="data.duelState.duelsResults?.[1]"
 					[loading]="data.duelLoading"></app-card>
 			}
 		</section>

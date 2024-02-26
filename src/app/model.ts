@@ -1,3 +1,19 @@
+export type SwapiRequestResult<T> = SwapiResult<T> | undefined;
+
+export type SwapiDuelData<T> = [SwapiRequestResult<T>, SwapiRequestResult<T>];
+
+export type SwapiResource = SwapiPerson | SwapiStarship;
+
+export type SwapiResourceName = keyof typeof SWAPI_RESOURCES;
+
+export type SwapiResourceNameLabel =
+	(typeof SWAPI_RESOURCES)[SwapiResourceName];
+
+export const SWAPI_RESOURCES = {
+	people: 'People',
+	starships: 'Starships',
+} as const;
+
 export type SwapiResponse<T> = {
 	message: string;
 	result: SwapiResult<T>;
@@ -14,7 +30,7 @@ export type SwapiResult<T> = {
 export const isSwapiPerson = (
 	resource: SwapiPerson | SwapiStarship,
 ): resource is SwapiPerson => {
-	return (resource as SwapiPerson).hair_color !== undefined;
+	return (resource as SwapiPerson).mass !== undefined;
 };
 
 export const isSwapiStarship = (
@@ -22,6 +38,11 @@ export const isSwapiStarship = (
 ): resource is SwapiStarship => {
 	return (resource as SwapiStarship).crew !== undefined;
 };
+
+export type SwapiDuelResult =
+	| [boolean, boolean]
+	| [undefined, undefined]
+	| undefined;
 
 export type SwapiPerson = {
 	height: string;

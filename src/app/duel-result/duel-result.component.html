@@ -1,0 +1,7 @@
+<section class="results" [ngClass]="loading ? 'loading' : 'loaded'">
+	@if (!loading) {
+		<span>{{ duelResultLabel() }}</span>
+	} @else {
+		<span>Duel in progress</span>
+	}
+</section>

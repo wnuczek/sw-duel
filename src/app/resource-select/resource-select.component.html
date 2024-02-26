@@ -4,8 +4,8 @@
 	<mat-select
 		id="resource"
 		name="resource"
-		[(ngModel)]="selectedResource"
-		(ngModelChange)="onResourceSelect($event)">
+		[value]="selectedResource$ | async"
+		(valueChange)="onResourceSelect($event)">
 		@for (resource of resources | keyvalue; track resource) {
 			<mat-option [value]="resource.key">{{ resource.value }}</mat-option>
 		}

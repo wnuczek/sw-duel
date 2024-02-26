@@ -4,8 +4,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { isSwapiPerson } from '../model';
-import { SwapiRequestResult, SwapiResource } from '../swapi.service';
+import {
+	SwapiRequestResult,
+	SwapiResource,
+	isSwapiPerson,
+	isSwapiStarship,
+} from '../model';
 
 @Component({
 	selector: 'app-card',
@@ -34,6 +38,9 @@ export class CardComponent {
 		if (isSwapiPerson(this.resource.properties)) {
 			return `Mass: ${this.resource.properties.mass}`;
 		}
-		return `Crew: ${this.resource.properties.crew}`;
+		if (isSwapiStarship(this.resource.properties)) {
+			return `Crew: ${this.resource.properties.crew}`;
+		}
+		return;
 	}
 }

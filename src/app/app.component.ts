@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
 import { CardComponent } from './card/card.component';
+import { DuelResultComponent } from './duel-result/duel-result.component';
+import { PlayButtonComponent } from './play-button/play-button.component';
 import { ResourceSelectComponent } from './resource-select/resource-select.component';
-import { SwapiResourceName, SwapiService } from './swapi.service';
+import { SwapiService } from './swapi.service';
 
 @Component({
 	selector: 'app-root',
@@ -14,14 +15,14 @@ import { SwapiResourceName, SwapiService } from './swapi.service';
 		CommonModule,
 		CardComponent,
 		ResourceSelectComponent,
-		MatButtonModule,
+		PlayButtonComponent,
+		DuelResultComponent,
 	],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css',
 })
 export class AppComponent {
 	title = 'SW Duel';
-	selectedResource: SwapiResourceName = 'people';
 
 	private swapi = inject(SwapiService);
 
@@ -29,16 +30,6 @@ export class AppComponent {
 	duelLoading$ = this.swapi.duelLoading$;
 
 	duel() {
-		this.swapi.duel(this.selectedResource);
-	}
-
-	duelResultLabel(
-		results: [boolean, boolean] | [undefined, undefined] | undefined,
-	): 'No duels played' | 'Draw' | 'Player 1 wins' | 'Player 2 wins' {
-		if (!results || results.every((r) => r === undefined))
-			return 'No duels played';
-		if (results.every((r) => r === false)) return 'Draw';
-		if (results[0]) return 'Player 1 wins';
-		return 'Player 2 wins';
+		this.swapi.duel();
 	}
 }

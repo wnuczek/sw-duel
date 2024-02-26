@@ -10,52 +10,34 @@ import {
 	retry,
 } from 'rxjs';
 import {
-	SwapiPerson,
+	SwapiDuelData,
+	SwapiResource,
+	SwapiResourceName,
 	SwapiResponse,
 	SwapiResult,
-	SwapiStarship,
 	isSwapiPerson,
 	isSwapiStarship,
 } from './model';
-
-export type SwapiRequestResult<T> = SwapiResult<T> | undefined;
-
-export type SwapiDuelResult<T> = [SwapiRequestResult<T>, SwapiRequestResult<T>];
-
-export type SwapiResource = SwapiPerson | SwapiStarship;
-
-export type SwapiResourceName = keyof typeof SWAPI_RESOURCES;
-
-export type SwapiResourceNameLabel =
-	(typeof SWAPI_RESOURCES)[SwapiResourceName];
-
-export const SWAPI_RESOURCES = {
-	people: 'People',
-	starships: 'Starships',
-} as const;
 
 export type DuelState = {
 	duelsCount: number;
 	playerOneWins: number;
 	playerTwoWins: number;
-	duelsResults: [boolean, boolean] | [undefined, undefined];
-	duelsData: SwapiDuelResult<SwapiResource>;
+	duelsResults: [boolean, boolean] | undefined;
+	duelsData: SwapiDuelData<SwapiResource>;
 };
-const initialDuelResult: SwapiDuelResult<SwapiResource> = [
-	undefined,
-	undefined,
-];
 
 const initialState: DuelState = {
 	duelsCount: 0,
 	playerOneWins: 0,
 	playerTwoWins: 0,
-	duelsResults: [undefined, undefined],
-	duelsData: initialDuelResult,
+	duelsResults: undefined,
+	duelsData: [undefined, undefined],
 };
 
 const PEOPLE_MAX_ID = 83;
 const STARSHIP_MAX_ID = 15;
+const RESET_ON_RESOURCE_CHANGE = false;
 
 @Injectable({
 	providedIn: 'root',
@@ -74,14 +56,18 @@ export class SwapiService implements OnDestroy {
 	private _duelLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 	duelLoading$ = this._duelLoading.asObservable();
 
+	private _selectedResource: BehaviorSubject<SwapiResourceName> =
+		new BehaviorSubject('people' as SwapiResourceName);
+	selectedResource$ = this._selectedResource.asObservable();
+
 	ngOnDestroy(): void {
 		this.resultSubscription?.unsubscribe();
 	}
 
-	duel(resource: SwapiResourceName) {
+	duel() {
 		this._duelLoading.next(true);
-		const res1$ = this.getSwapiResponse(resource);
-		const res2$ = this.getSwapiResponse(resource);
+		const res1$ = this.getSwapiResponse(this._selectedResource.value);
+		const res2$ = this.getSwapiResponse(this._selectedResource.value);
 
 		this.resultSubscription = res1$
 			.pipe(mergeMap((res1) => res2$.pipe(map((res2) => [res1, res2]))))
@@ -104,8 +90,13 @@ export class SwapiService implements OnDestroy {
 			});
 	}
 
+	selectedResource(resource: SwapiResourceName) {
+		this._selectedResource.next(resource);
+		if (RESET_ON_RESOURCE_CHANGE) this._duelState.next(initialState);
+	}
+
 	compareResources(
-		resources: SwapiDuelResult<SwapiResource>,
+		resources: SwapiDuelData<SwapiResource>,
 	): [boolean, boolean] {
 		if (!resources[0] || !resources[1]) {
 			// error

@@ -37,16 +37,6 @@ main {
 	max-width: 1200px;
 	height: calc(100dvh - 2 * var(--bar-height));
 
-	.results {
-		font-size: 2rem;
-		font-weight: bold;
-
-		opacity: 0;
-
-		&.loaded {
-			animation: fadeIn .5s ease-in-out 0s alternate both;
-		}
-	}
 
 	.cards {
 		display: grid;
@@ -60,15 +50,5 @@ main {
 			grid-template-columns: repeat(2, 1fr);
 
 		}
-	}
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
 	}
 }

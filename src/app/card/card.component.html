@@ -3,7 +3,8 @@
 	[ngClass]="result === true ? 'winner' : result === false ? 'loser' : ''">
 	<mat-card-header>
 		<mat-card-subtitle
-			>{{ player }}
+			>
+			<span class="player-name">{{ player }}</span>
 			<span class="player-stats"
 				>Wins: {{ playerWins }}</span
 			></mat-card-subtitle
