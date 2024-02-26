@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-label>Play with</mat-label>
+
+  <mat-select
+    id="resource"
+    name="resource"
+    [(ngModel)]="selectedResource"
+    (ngModelChange)="onResourceSelect($event)"
+  >
+    @for (resource of resources | keyvalue; track resource) {
+    <mat-option [value]="resource.key">{{ resource.value }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
