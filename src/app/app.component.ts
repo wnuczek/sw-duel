@@ -28,8 +28,4 @@ export class AppComponent {
 
 	duelState$ = this.swapi.duelState$;
 	duelLoading$ = this.swapi.duelLoading$;
-
-	duel() {
-		this.swapi.duel();
-	}
 }

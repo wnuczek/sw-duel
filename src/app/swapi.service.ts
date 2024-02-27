@@ -7,7 +7,6 @@ import {
 	catchError,
 	map,
 	mergeMap,
-	retry,
 } from 'rxjs';
 import {
 	SwapiDuelData,
@@ -164,7 +163,7 @@ export class SwapiService implements OnDestroy {
 					console.error(e);
 					return this.getSwapiResponse(resource);
 				}),
-				retry(3),
+				// retry(3),
 			);
 	}
 }

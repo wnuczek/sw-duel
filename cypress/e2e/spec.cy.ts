@@ -1,4 +1,4 @@
-describe('My First Test', () => {
+describe('SW Duel', () => {
 	it('Initial page has SW Duel title', () => {
 		cy.visit('/');
 		cy.contains('SW Duel');
